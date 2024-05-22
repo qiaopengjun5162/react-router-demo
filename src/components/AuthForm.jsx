@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation, useRegisterMutation } from "../store/api/authApi";
 import { login } from "../store/reducer/authSlice";
 import classes from "./AuthForm.module.css";
@@ -22,6 +22,8 @@ const AuthForm = () => {
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -40,7 +42,8 @@ const AuthForm = () => {
                             user: res.data.user,
                         })
                     );
-                    navigate("/", { replace: true });
+                    // navigate("/", { replace: true });
+                    navigate(from, { replace: true });
                 }
             });
         } else {
