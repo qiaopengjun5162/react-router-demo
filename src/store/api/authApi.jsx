@@ -6,9 +6,9 @@ export const authApi = createApi({
     endpoints: builder => ({
         login: builder.mutation({
             query: (user) => ({
-                url: 'auth/local/register',
+                url: 'auth/local',
                 method: 'POST',
-                body: user
+                body: user // identifier
             }),
             transformResponse: (response, meta, arg) => {
                 return response
