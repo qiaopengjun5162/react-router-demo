@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import NeedAuth from "./components/NeedAuth";
@@ -8,7 +7,7 @@ import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 
 const App = () => {
-    const auth = useSelector((state) => state.auth);
+    // const auth = useSelector((state) => state.auth);
     return (
         <Layout>
             <Routes>
