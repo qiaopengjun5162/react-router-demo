@@ -31,6 +31,8 @@ export const authSlice = createSlice({
             // 设置登录状态失效时间
             const currentTime = Date.now();
             const timeout = 1000 * 60 * 60 * 24 * 7; // 7天 
+            // const timeout = 10000; // 10秒
+
             const expirationTime = currentTime + timeout;
 
             state.expirationTime = expirationTime;
