@@ -90,7 +90,7 @@ const AuthForm = () => {
                 </div>
                 <div className={classes.actions}>
                     <button type="submit">{isLoginForm ? "Login" : "Sign Up"}</button>
-                    <a href="#" onClick={() => setIsLoginForm((prevState) => !prevState)}>
+                    <a href="/" onClick={() => setIsLoginForm((prevState) => !prevState)}>
                         {isLoginForm ? "Create new account" : "Login with existing account"}
                     </a>
                 </div>
