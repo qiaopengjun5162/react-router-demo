@@ -6,11 +6,13 @@ import useAutoLogout from "./hooks/useAutoLogout";
 import AuthPage from "./pages/AuthPage";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
+import StudentPage from "./pages/StudentPage";
 
 const App = () => {
     useAutoLogout();
     return (
         <Layout>
+
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route
@@ -20,6 +22,10 @@ const App = () => {
                     }
                 />
                 <Route path="/auth-form" element={<AuthPage />} />
+
+                <Route path="/student" element={<NeedAuth><StudentPage /></NeedAuth>} />
+
+                <Route path="*" element={<h1>404 NOT FOUND</h1>} />
             </Routes>
         </Layout>
     );
