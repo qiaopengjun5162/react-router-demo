@@ -6,7 +6,6 @@ import classes from "./StudentList.module.css"
 
 const StudentList = (props) => {
     const { data: students, isSuccess, isLoading, isError } = useGetStudentsQuery()
-    console.log(students);
     return (
         <table className={classes.table}>
             <caption className={classes.title}>学生列表</caption>
@@ -22,10 +21,10 @@ const StudentList = (props) => {
             <tbody>
                 {/* {props.students.map((student) => <Student key={student.id} student={student} />)} */}
 
-                {isLoading && <p>Loading...</p>}
+                {isLoading && <tr><td colSpan={5}>Loading...</td></tr>}
                 {isSuccess && students.map((student) => <Student key={student.id} student={student} />)}
 
-                {isError && <p>Error...</p>}
+                {isError && <tr><td colSpan={5}>Error...</td></tr>}
             </tbody>
 
 

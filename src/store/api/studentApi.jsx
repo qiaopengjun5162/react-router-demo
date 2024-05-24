@@ -9,7 +9,22 @@ const studentApi = createApi({
     reducerPath: "studentApi", // api 的标识 不能和其它的api或 reducer 冲突
     // baseQuery 用来指定基础的请求方法，例如 fetch 或 axios。
     // 该方法接收一个配置对象作为参数，该配置对象定义了基础请求方法的属性和行为。
-    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:1337/api/" }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: "http://localhost:1337/api/", // 基础请求路径
+        prepareHeaders: (headers, { getState }) => {
+            // prepareHeaders 用来设置请求的头部信息。
+            // 该方法接收两个参数：headers 请求的头部信息，getState 获取当前的 redux 状态。
+            // 根据需要对 headers 进行处理，例如添加认证信息等。
+            const token = getState().auth.token;
+
+            // 如果需要添加认证信息，则可以使用 headers.set 方法来添加头部信息。
+            // 如果存在 token，则将其添加到请求的头部信息中。
+            if (token) {
+                headers.set("Authorization", `Bearer ${token}`);
+            }
+            return headers;
+        }
+    }),
     // tagTypes 用来指定 endpoint 方法的类型，用于在 reducer 中区分不同的数据获取操作。
     tagTypes: ["Student"],
     // endpoints 用来定义 endpoint 方法，每个 endpoint 方法都对应一个数据获取操作。
@@ -18,7 +33,16 @@ const studentApi = createApi({
     endpoints: (builder) => ({
         getStudents: builder.query({
             // query 用来指定 endpoint 方法的请求路径。
-            query: () => "students",
+            query: () => {
+                return {
+                    url: "students",
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                }
+            },
             transformResponse: (response, meta, arg) => {
                 // transformResponse 用来对请求到的数据进行处理。
                 // 该方法接收三个参数：response 请求到的数据，meta 请求的元数据信息，arg 请求的参数。
